@@ -11,17 +11,17 @@ if (!defined('MODX_CORE_PATH')) {
 return [
     'name' => 'modSizeControl',
     'name_lower' => 'modsizecontrol',
-    'version' => '2.0.0',
-    'release' => 'pl',
+    'version' => '1.0.0',
+    'release' => 'beta',
     // Install package to site right after build
     'install' => true,
     // Which elements should be updated on package upgrade
     'update' => [
-        'chunks' => false,
+        'chunks' => true,
         'menus' => true,
         'plugins' => true,
         'resources' => false,
-        'settings' => false,
+        'settings' => true,
         'snippets' => true,
         'templates' => false,
         'widgets' => false,

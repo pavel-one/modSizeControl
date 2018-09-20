@@ -1,7 +1,6 @@
 --------------------
 modSizeControl
 --------------------
-Author: John Doe <john@doe.com>
+Author: Gulomov Creative and Pavel Zarubin
 --------------------
 
-A basic Extra for MODx Revolution.

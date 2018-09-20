@@ -13,7 +13,7 @@ $packages = [
         'service_url' => 'modstore.pro',
     ],
     'pdoTools' => [
-        'version' => '2.10.0-pl',
+        'version' => '2.11.2-pl',
         'service_url' => 'modstore.pro',
     ],
 ];
