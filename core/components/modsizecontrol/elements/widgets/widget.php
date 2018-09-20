@@ -5,18 +5,37 @@ class modSizeControlWidget extends modDashboardWidgetInterface {
     public $pdo;
     /** @var modSizeControl $modSizeControl */
     public $modSizeControl;
+    public $limit;
+    public $size;
 
     public function process()
     {
         $this->pdo = $this->modx->getService('pdoTools');
         $this->modSizeControl = $this->modx->getService('modSizeControl', 'modSizeControl', MODX_CORE_PATH . 'components/modsizecontrol/model/', array());
+        //TODO: сделать настройки
+        $this->limit = $this->modx->getOption('ss_site_limit') ?: 1073741824;
+        $this->size = $this->modx->getOption('ss_site_size');
 
         return parent::process();
     }
 
     public function render()
     {
-        // TODO: Implement render() method.
+
+        // Просчет процентов
+        $per = $this->limit / 100;
+        $percent = ceil($this->size / $per);
+
+        // Выставление плейсхолдеров
+        $placeholders = array(
+            'percent' => $percent,
+            'limit' => $this->modSizeControl->format_size($this->limit),
+            'size' => $this->modSizeControl->format_size($this->size)
+        );
+
+        $output = $this->pdo->getChunk('SiteSize', $placeholders);
+
+        return $output;
     }
 }
 

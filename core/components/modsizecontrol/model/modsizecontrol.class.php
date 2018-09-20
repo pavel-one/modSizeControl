@@ -25,10 +25,26 @@ class modSizeControl
             'assetsUrl' => $assetsUrl,
             'cssUrl' => $assetsUrl . 'css/',
             'jsUrl' => $assetsUrl . 'js/',
+            'tpl' => ''
         ], $config);
 
         $this->modx->addPackage('modsizecontrol', $this->config['modelPath']);
         $this->modx->lexicon->load('modsizecontrol:default');
+    }
+    // Функция форматирует вывод размера
+    public function format_size($size){
+        $metrics[0] = 'байт';
+        $metrics[1] = 'Кбайт';
+        $metrics[2] = 'Мбайт';
+        $metrics[3] = 'Гбайт';
+        $metrics[4] = 'Тбайт';
+        $metric = 0;
+        while(floor($size/1024) > 0){
+            ++$metric;
+            $size /= 1024;
+        }
+        $ret =  round($size,1)." ".(isset($metrics[$metric])?$metrics[$metric]:'??');
+        return $ret;
     }
 
 }
