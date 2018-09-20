@@ -22,8 +22,8 @@ if (!$source_ids) {
 }
 
 $paths = array();
-
 foreach($source_ids as $s) {
+    /** @var modMediaSource $source */
     $source = $modx->getObject('modMediaSource', $s);
 
     if ($source) {
@@ -41,7 +41,10 @@ foreach($paths as $p) {
 
 // Сохраняем и очищаем кэш
 
-$set = $modx->getObject('modSystemSetting', 'ss_site_size');
+$set = $modx->getObject('modSystemSetting', 'modsizecontrol_site_size');
+if (!$set) {
+    exit();
+}
 $set->set('value', $size);
 $set->save();
 $modx->cacheManager->refresh(array('system_settings' => array()));
