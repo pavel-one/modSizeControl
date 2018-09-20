@@ -8,3 +8,6 @@ $_lang['setting_modsizecontrol_site_limit_desc'] = 'Описание будет 
 
 $_lang['setting_modsizecontrol_site_size'] = 'Размер сайта';
 $_lang['setting_modsizecontrol_site_size_desc'] = 'Описание будет позже';
+
+$_lang['setting_modsizecontrol_file_system'] = 'Файловые системы';
+$_lang['setting_modsizecontrol_file_system_desc'] = 'ID через запятую';

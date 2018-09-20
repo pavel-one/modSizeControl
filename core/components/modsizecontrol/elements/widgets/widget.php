@@ -12,9 +12,6 @@ class modSizeControlWidget extends modDashboardWidgetInterface
 
     public function process()
     {
-        $this->modx->regClientCSS($this->modSizeControl->config['cssUrl'] . 'mgr/default.css');
-        $this->modx->regClientStartupScript($this->modSizeControl->config['jsUrl'] . 'mgr/default.js');
-
         $this->pdo = $this->modx->getService('pdoTools');
         $this->modSizeControl = $this->modx->getService('modSizeControl', 'modSizeControl', MODX_CORE_PATH . 'components/modsizecontrol/model/', array());
         $this->limit = $this->modx->getOption('modsizecontrol_site_limit') ?: 1073741824;
