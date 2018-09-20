@@ -1,7 +1,7 @@
 <?php
 include_once 'setting.inc.php';
 
-$_lang['modsizecontrol'] = 'modSizeControl';
+$_lang['modsizecontrol'] = 'Контроль размера сайта';
 $_lang['modsizecontrol_menu_desc'] = 'Пример расширения для разработки.';
 $_lang['modsizecontrol_intro_msg'] = 'Вы можете выделять сразу несколько предметов при помощи Shift или Ctrl.';
 
