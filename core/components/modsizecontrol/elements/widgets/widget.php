@@ -13,8 +13,8 @@ class modSizeControlWidget extends modDashboardWidgetInterface {
         $this->pdo = $this->modx->getService('pdoTools');
         $this->modSizeControl = $this->modx->getService('modSizeControl', 'modSizeControl', MODX_CORE_PATH . 'components/modsizecontrol/model/', array());
         //TODO: сделать настройки
-        $this->limit = $this->modx->getOption('ss_site_limit') ?: 1073741824;
-        $this->size = $this->modx->getOption('ss_site_size');
+        $this->limit = $this->modx->getOption('modsizecontrol_site_limit') ?: 1073741824;
+        $this->size = $this->modx->getOption('modsizecontrol_site_size');
 
         return parent::process();
     }
@@ -32,7 +32,7 @@ class modSizeControlWidget extends modDashboardWidgetInterface {
             'limit' => $this->modSizeControl->format_size($this->limit),
             'size' => $this->modSizeControl->format_size($this->size)
         );
-
+        /** TODO: Сделать вывод чанка из конфига */
         $output = $this->pdo->getChunk('SiteSize', $placeholders);
 
         return $output;

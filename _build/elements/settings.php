@@ -1,9 +1,14 @@
 <?php
 
 return [
-    'some_setting' => [
-        'xtype' => 'combo-boolean',
-        'value' => true,
+    'site_limit' => [
+        'xtype' => 'textfield',
+        'value' => '',
+        'area' => 'modsizecontrol_main',
+    ],
+    'site_size' => [
+        'xtype' => 'textfield',
+        'value' => '1073741824',
         'area' => 'modsizecontrol_main',
     ],
 ];
