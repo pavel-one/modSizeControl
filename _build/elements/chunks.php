@@ -1,12 +1,8 @@
 <?php
 
 return [
-    'tpl.modSizeControl.item' => [
+    'tpl.modSizeControl' => [
         'file' => 'item',
-        'description' => '',
-    ],
-    'tpl.modSizeControl.office' => [
-        'file' => 'office',
-        'description' => '',
+        'description' => 'Чанк вывода оформления',
     ],
 ];

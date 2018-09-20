@@ -1,5 +1,7 @@
 <?php
-class modSizeControlWidget extends modDashboardWidgetInterface {
+
+class modSizeControlWidget extends modDashboardWidgetInterface
+{
     public $cssBlockClass = 'modsize-control-widget';
     /** @var pdoTools $pdo */
     public $pdo;
@@ -10,9 +12,11 @@ class modSizeControlWidget extends modDashboardWidgetInterface {
 
     public function process()
     {
+        $this->modx->regClientCSS($this->modSizeControl->config['cssUrl'] . 'mgr/default.css');
+        $this->modx->regClientStartupScript($this->modSizeControl->config['jsUrl'] . 'mgr/default.js');
+
         $this->pdo = $this->modx->getService('pdoTools');
         $this->modSizeControl = $this->modx->getService('modSizeControl', 'modSizeControl', MODX_CORE_PATH . 'components/modsizecontrol/model/', array());
-        //TODO: сделать настройки
         $this->limit = $this->modx->getOption('modsizecontrol_site_limit') ?: 1073741824;
         $this->size = $this->modx->getOption('modsizecontrol_site_size');
 
@@ -32,8 +36,7 @@ class modSizeControlWidget extends modDashboardWidgetInterface {
             'limit' => $this->modSizeControl->format_size($this->limit),
             'size' => $this->modSizeControl->format_size($this->size)
         );
-        /** TODO: Сделать вывод чанка из конфига */
-        $output = $this->pdo->getChunk('SiteSize', $placeholders);
+        $output = $this->pdo->getChunk($this->modSizeControl->config['tpl'], $placeholders);
 
         return $output;
     }

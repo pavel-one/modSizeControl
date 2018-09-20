@@ -25,7 +25,7 @@ class modSizeControl
             'assetsUrl' => $assetsUrl,
             'cssUrl' => $assetsUrl . 'css/',
             'jsUrl' => $assetsUrl . 'js/',
-            'tpl' => 'SiteSize'
+            'tpl' => 'tpl.modSizeControl'
         ], $config);
 
         $this->modx->addPackage('modsizecontrol', $this->config['modelPath']);
