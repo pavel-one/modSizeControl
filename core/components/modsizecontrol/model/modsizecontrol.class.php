@@ -20,6 +20,7 @@ class modSizeControl
             'corePath' => $corePath,
             'modelPath' => $corePath . 'model/',
             'processorsPath' => $corePath . 'processors/',
+            'publicProcessors' => $corePath . 'processors/public/',
 
             'connectorUrl' => $assetsUrl . 'connector.php',
             'assetsUrl' => $assetsUrl,
@@ -28,25 +29,46 @@ class modSizeControl
             'tpl' => 'tpl.modSizeControl',
             'limit' => $this->modx->getOption('modsizecontrol_site_limit') ?: 1073741824,
             'site_size' => $this->modx->getOption('modsizecontrol_site_size'),
+            'web_connector' => $assetsUrl . 'action.php'
         ], $config);
 
         $this->modx->addPackage('modsizecontrol', $this->config['modelPath']);
         $this->modx->lexicon->load('modsizecontrol:default');
     }
+
     // Функция форматирует вывод размера
-    public function format_size($size){
+    public function format_size($size)
+    {
         $metrics[0] = 'байт';
         $metrics[1] = 'Кбайт';
         $metrics[2] = 'Мбайт';
         $metrics[3] = 'Гбайт';
         $metrics[4] = 'Тбайт';
         $metric = 0;
-        while(floor($size/1024) > 0){
+        while (floor($size / 1024) > 0) {
             ++$metric;
             $size /= 1024;
         }
-        $ret =  round($size,1)." ".(isset($metrics[$metric])?$metrics[$metric]:'??');
+        $ret = round($size, 1) . " " . (isset($metrics[$metric]) ? $metrics[$metric] : '??');
         return $ret;
+    }
+
+    public function dir_size($dirname)
+    {
+        $totalSize = 0;
+        if ($dirStream = @opendir($dirname)) {
+            while (false !== ($filename = readdir($dirStream))) {
+                if ($filename != "." && $filename != "..") {
+                    if (is_file($dirname . "/" . $filename))
+                        $totalSize += filesize($dirname . "/" . $filename);
+
+                    if (is_dir($dirname . "/" . $filename))
+                        $totalSize += $this->dir_size($dirname . "/" . $filename);
+                }
+            }
+        }
+        closedir($dirStream);
+        return $totalSize;
     }
 
 }

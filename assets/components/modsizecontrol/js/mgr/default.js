@@ -6,10 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
         percent: document.getElementById('modsizecontrol-percent'),
         error: document.getElementsByClassName('modsizecontrol-error'),
         chart: document.getElementById("modsizecontrol-circlechart")
-    }
-
+    };
+    var queryUpdate = encodeURI('action=size/update');
     var modSizeControl = {
-        link: '../assets/components/modsizecontrol/action.php?action=get', // TODO: Вот тут лучше бы забрать динамически
+        link: modSizeControlConfig.web_connector+queryUpdate,
         ajax: function () {
             mSCElements.button.classList.add('x-item-disabled');
             mSCElements.chart.classList.add('loading');
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         MODx.msg.alert('Ошибка', 'Произошла ошибка при запросе: ' + mSCRequest.status + ' ' + mSCRequest.statusText, function () {}, MODx);
                     }
                 }
-            }
+            };
 
             mSCRequest.send(null);
         },
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             return svg;
         }
-    }
+    };
 
     if (mSCElements.button) mSCElements.button.onclick = modSizeControl.ajax;
 
