@@ -14,7 +14,7 @@ $modSizeControl = $modx->getService('modSizeControl', 'modSizeControl', MODX_COR
 /** @var pdoTools $pdo */
 $pdo = $modx->getService('pdoTools');
 
-$limit = $modx->getOption('modsizecontrol_site_limit') ?: 1073741824;
+$limit = $modSizeControl->config['limit'];
 $source_ids = explode(',', $modx->getOption('modsizecontrol_file_system'));
 
 if (!$source_ids) {
@@ -85,4 +85,4 @@ $placeholders = array(
     'errorText' => $modx->lexicon('ss_limit_out_text'),
 );
 
-exit(json_encode($placeholders));
+exit($modx->fromJSON($placeholders));
