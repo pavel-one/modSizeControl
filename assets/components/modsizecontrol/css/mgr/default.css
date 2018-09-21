@@ -1,4 +1,4 @@
-#ss_wrapper {
+#modsizecontrol-wrapper {
     width: 100%;
     display: flex;
     align-items: center;
@@ -6,110 +6,108 @@
     padding: 20px 0;
 }
 
-.ss_item {
+.modsizecontrol-item {
     margin: 10px 0;
 }
 
-.ss_text {
+.modsizecontrol-text {
     display: block;
     font-weight: bold;
     font-size: 24px
 }
 
-.ss_small-text {
+.modsizecontrol-small-text {
     font-size: 11px;
 }
 
-.ss_text-muted {
+.modsizecontrol-text-muted {
     color: #999
 }
 
-.ss_error {
-    font-size: 13px;
-    font-weight: bold;
-    color: #d50000
-}
-
-.circle-chart {
+.modsizecontrol-circle-chart {
     font-family: sans-serif;
     width: 150px;
     height: 150px;
 }
 
-.circlechart {
+.modsizecontrol-circlechart {
     position: relative;
 }
 
-.ss_info {
+.modsizecontrol-info {
     position: absolute;
     top: 50%;
     left: 50%;
     font-size: 42px;
     color: #cdcdcd;
     font-weight: bold;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
 
-.circle-chart__circle {
+.modsizecontrol-circle-chart-circle {
     stroke: #00acc1;
     stroke-width: 1;
     stroke-linecap: square;
     fill: none;
-    animation: circle-chart-fill 2s reverse;
+    animation: modsizecontrol-circle-chart-fill 2s reverse;
     transform: rotate(-90deg);
     transform-origin: center;
 }
 
-.circlechart.loading .circle-chart__circle {
-    animation: circle-chart-loading 2s alternate-reverse infinite;
+.modsizecontrol-circlechart.loading .modsizecontrol-circle-chart-circle {
+    animation: modsizecontrol-circle-chart-loading 2s alternate-reverse infinite;
 }
 
-.circlechart.loading + .ss_info {
+.modsizecontrol-circlechart.loading+.modsizecontrol-info {
     font-size: 19px;
 }
 
-.circle-chart__circle--negative {
-    transform: rotate(-90deg) scale(1,-1);
+.modsizecontrol-circle-chart-circle--negative {
+    transform: rotate(-90deg) scale(1, -1);
 }
 
-.circle-chart__background {
+.modsizecontrol-circle-chart-background {
     stroke: #efefef;
     stroke-width: 2;
     fill: none;
 }
 
-.circle-chart__info {
+.modsizecontrol-circle-chart-info {
     font-weight: bold;
 }
 
-.circle-chart__percent {
+.modsizecontrol-circle-chart-percent {
     alignment-baseline: central;
     text-anchor: middle;
     font-size: 8px;
 }
 
-.circle-chart__subline {
+.modsizecontrol-circle-chart-subline {
     alignment-baseline: central;
     text-anchor: middle;
     font-size: 3px;
 }
 
-.success-stroke {
+.modsizecontrol-success-stroke {
     stroke: #00C851;
 }
 
-.warning-stroke {
+.modsizecontrol-warning-stroke {
     stroke: #ffbb33;
 }
 
-.danger-stroke {
+.modsizecontrol-danger-stroke {
     stroke: #ff4444;
 }
 
-@keyframes circle-chart-fill {
-    to { stroke-dasharray: 0 100; }
+@keyframes modsizecontrol-circle-chart-fill {
+    to {
+        stroke-dasharray: 0 100;
+    }
 }
 
-@keyframes circle-chart-loading {
-    to { stroke-dasharray: 0 100; }
+@keyframes modsizecontrol-circle-chart-loading {
+    to {
+        stroke-dasharray: 0 100;
+    }
 }
