@@ -1,62 +1,62 @@
-document.addEventListener('DOMContentLoaded', function(){
-    var elements = {
-        button: document.getElementById('ss_send'),
-        size: document.getElementById('ss_size'),
-        limit: document.getElementById('ss_limit'),
-        percent: document.getElementById('ss_percent'),
-        error: document.getElementsByClassName('ss_error'),
-        chart: document.getElementById("circlechart")
+document.addEventListener('DOMContentLoaded', function () {
+    var mSCElements = {
+        button: document.getElementById('modsizecontrol-send'),
+        size: document.getElementById('modsizecontrol-size'),
+        limit: document.getElementById('modsizecontrol-limit'),
+        percent: document.getElementById('modsizecontrol-percent'),
+        error: document.getElementsByClassName('modsizecontrol-error'),
+        chart: document.getElementById("modsizecontrol-circlechart")
     }
 
-    var sitesize = {
-        link: '../assets/components/modsizecontrol/action.php?action=get',
-        ajax: function() {
-            elements.button.classList.add('x-item-disabled');
-            elements.chart.classList.add('loading');
-            elements.chart.innerHTML = sitesize.makesvg(100);
-            elements.percent.innerHTML = 'Загрузка';
-            var ss_request = new XMLHttpRequest();
-            ss_request.open('GET', sitesize.link);
+    var modSizeControl = {
+        link: '../assets/components/modsizecontrol/action.php?action=get', // TODO: Вот тут лучше бы забрать динамически
+        ajax: function () {
+            mSCElements.button.classList.add('x-item-disabled');
+            mSCElements.chart.classList.add('loading');
+            mSCElements.chart.innerHTML = modSizeControl.makesvg(100);
+            mSCElements.percent.innerHTML = 'Загрузка'; // TODO: Текст нужно забирать из лексикона
+            var mSCRequest = new XMLHttpRequest();
+            mSCRequest.open('GET', modSizeControl.link);
 
-            ss_request.onreadystatechange = function() {
-                if(ss_request.readyState === 4) {
-                    if(ss_request.status === 200) {
+            mSCRequest.onreadystatechange = function () {
+                if (mSCRequest.readyState === 4) {
+                    if (mSCRequest.status === 200) {
                         var data = JSON.parse(this.responseText);
-                        elements.size.innerHTML = data.size;
-                        elements.limit.innerHTML = data.limit;
-                        elements.percent.innerHTML = data.percent + '%';
+                        mSCElements.size.innerHTML = data.size;
+                        mSCElements.limit.innerHTML = data.limit;
+                        mSCElements.percent.innerHTML = data.percent + '%';
 
                         if (data.percent > 100) {
-                            MODx.msg.alert(data.errorHeader,data.errorText,function() {},MODx);
+                            MODx.msg.alert(data.errorHeader, data.errorText, function () {}, MODx);
                         }
 
-                        elements.chart.classList.remove('loading');
-                        elements.chart.innerHTML = sitesize.makesvg(data.percent);
-                        elements.button.classList.remove('x-item-disabled');
+                        mSCElements.chart.classList.remove('loading');
+                        mSCElements.chart.innerHTML = modSizeControl.makesvg(data.percent);
+                        mSCElements.button.classList.remove('x-item-disabled');
                     } else {
-                        ss_wrapper.innerHTML = 'Произошла ошибка при запросе: ' +  ss_request.status + ' ' + ss_request.statusText;
+                        MODx.msg.alert('Ошибка', 'Произошла ошибка при запросе: ' + mSCRequest.status + ' ' + mSCRequest.statusText, function () {}, MODx);
                     }
                 }
             }
 
-            ss_request.send(null);
+            mSCRequest.send(null);
         },
-        makesvg: function(percentage) {
+        makesvg: function (percentage) {
             var abs_percentage = Math.abs(percentage).toString();
-            var classes = "";
+            var classes = '';
 
-            if(percentage >= 50 && percentage <= 75){
-                classes = "warning-stroke";
-            } else if(percentage > 75){
-                classes = "danger-stroke";
-            } else{
-                classes = "success-stroke";
+            if (percentage >= 50 && percentage <= 75) {
+                classes = 'modsizecontrol-warning-stroke';
+            } else if (percentage > 75) {
+                classes = 'modsizecontrol-danger-stroke';
+            } else {
+                classes = 'modsizecontrol-success-stroke';
             }
 
-            var svg = '<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" xmlns="http://www.w3.org/2000/svg">'
-                + '<circle class="circle-chart__background" cx="16.9" cy="16.9" r="15.9" />'
-                + '<circle class="circle-chart__circle '+classes+'"'
-                + 'stroke-dasharray="'+ abs_percentage+',100"    cx="16.9" cy="16.9" r="15.9" />';
+            var svg = '<svg class="modsizecontrol-circle-chart" viewbox="0 0 33.83098862 33.83098862" xmlns="http://www.w3.org/2000/svg">' +
+                '<circle class="modsizecontrol-circle-chart-background" cx="16.9" cy="16.9" r="15.9" />' +
+                '<circle class="modsizecontrol-circle-chart-circle ' + classes + '"' +
+                'stroke-dasharray="' + abs_percentage + ',100"    cx="16.9" cy="16.9" r="15.9" />';
 
             svg += ' </g></svg>';
 
@@ -64,11 +64,7 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
-    if(elements.button) {
-        elements.button.onclick = sitesize.ajax;
-    }
+    if (mSCElements.button) mSCElements.button.onclick = modSizeControl.ajax;
 
-    if(elements.chart) {
-        elements.chart.innerHTML = sitesize.makesvg(elements.chart.dataset.percentage);
-    }
+    if (mSCElements.chart) mSCElements.chart.innerHTML = modSizeControl.makesvg(mSCElements.chart.dataset.percentage);
 });
