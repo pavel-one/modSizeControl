@@ -10,7 +10,7 @@ if (!$modSizeControl) {
 // Do your snippet code here. This demo grabs 5 items from our custom table.
 $tpl = $modx->getOption('tpl', $scriptProperties, 'Item');
 $sortby = $modx->getOption('sortby', $scriptProperties, 'name');
-$sortdir = $modx->getOption('sortbir', $scriptProperties, 'ASC');
+$sortdir = $modx->getOption('sortdir', $scriptProperties, 'ASC');
 $limit = $modx->getOption('limit', $scriptProperties, 5);
 $outputSeparator = $modx->getOption('outputSeparator', $scriptProperties, "\n");
 $toPlaceholder = $modx->getOption('toPlaceholder', $scriptProperties, false);

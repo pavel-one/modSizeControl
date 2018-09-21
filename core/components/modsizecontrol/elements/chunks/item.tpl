@@ -6,7 +6,7 @@
                 <span id="ss_size" class="ss_text ss_text-bold">{$size}</span>
             </div>
             <div class="ss_item">
-                <span class="ss_small-text ss_text-bold">{'ss_available' | chunk}</span>
+                <span class="ss_small-text ss_text-bold">{'ss_available' | lexicon}</span>
                 <span id="ss_limit" class="ss_text ss_text-muted">{$limit}</span>
             </div>
             <div class="ss_item">
