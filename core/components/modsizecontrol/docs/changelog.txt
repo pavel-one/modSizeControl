@@ -1,5 +1,16 @@
 Changelog for modSizeControl.
 
+1.0.2-beta
+==============
+- Remove init pdoTools from processor
+- Added tpl setting
+
+1.0.1-beta
+==============
+- Refactoring js
+- size/update processor
+- Refactoring php
+
 1.0.0-beta
 ==============
 - First Init
