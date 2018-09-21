@@ -26,7 +26,7 @@ class modSizeControl
             'assetsUrl' => $assetsUrl,
             'cssUrl' => $assetsUrl . 'css/',
             'jsUrl' => $assetsUrl . 'js/',
-            'tpl' => 'tpl.modSizeControl',
+            'tpl' => $this->modx->getOption('modsizecontrol_tpl'),
             'limit' => $this->modx->getOption('modsizecontrol_site_limit') ?: 1073741824,
             'site_size' => $this->modx->getOption('modsizecontrol_site_size'),
             'web_connector' => $assetsUrl . 'action.php'

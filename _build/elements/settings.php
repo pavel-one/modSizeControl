@@ -16,4 +16,9 @@ return [
         'value' => '1',
         'area' => 'modsizecontrol_main',
     ],
+    'tpl' => [
+        'xtype' => 'textfield',
+        'value' => 'tpl.modSizeControl',
+        'area' => 'modsizecontrol_main',
+    ]
 ];

@@ -4,8 +4,6 @@ class SizeUpdateProcessor extends modProcessor
 {
     /** @var modSizeControl $modSizeControl */
     public $modSizeControl;
-    /** @var pdoTools $pdo */
-    public $pdo;
     public $limit;
     public $sources;
     protected $patches;
@@ -16,10 +14,6 @@ class SizeUpdateProcessor extends modProcessor
         $this->modSizeControl = $this->modx->getService('modSizeControl', 'modSizeControl', MODX_CORE_PATH . 'components/modsizecontrol/model/', array());
         if (!$this->modSizeControl) {
             return 'Не загружен класс';
-        }
-        $this->pdo = $this->modx->getService('pdoTools');
-        if (!$this->pdo) {
-            return 'Не загружен pdoTools';
         }
 
         $this->limit = $this->modSizeControl->config['limit'];

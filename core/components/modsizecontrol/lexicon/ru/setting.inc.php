@@ -11,3 +11,6 @@ $_lang['setting_modsizecontrol_site_size_desc'] = 'Описание будет �
 
 $_lang['setting_modsizecontrol_file_system'] = 'Файловые системы';
 $_lang['setting_modsizecontrol_file_system_desc'] = 'ID через запятую';
+
+$_lang['setting_modsizecontrol_tpl'] = 'Шаблон';
+$_lang['setting_modsizecontrol_tpl_desc'] = 'Чанк вывода оформления виджета. По умолчанию: tpl.modSizeControl';
