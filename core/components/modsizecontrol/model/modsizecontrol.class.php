@@ -53,20 +53,21 @@ class modSizeControl
         return $ret;
     }
 
-    public function dir_size($dirname)
+    public function dir_size($dirName)
     {
         $totalSize = 0;
-        if ($dirStream = @opendir($dirname)) {
+        if ($dirStream = @opendir($dirName)) {
             while (false !== ($filename = readdir($dirStream))) {
                 if ($filename != "." && $filename != "..") {
-                    if (is_file($dirname . "/" . $filename))
-                        $totalSize += filesize($dirname . "/" . $filename);
+                    if (is_file($dirName . "/" . $filename))
+                        $totalSize += filesize($dirName . "/" . $filename);
 
-                    if (is_dir($dirname . "/" . $filename))
-                        $totalSize += $this->dir_size($dirname . "/" . $filename);
+                    if (is_dir($dirName . "/" . $filename))
+                        $totalSize += $this->dir_size($dirName . "/" . $filename);
                 }
             }
         }
+
         closedir($dirStream);
         return $totalSize;
     }

@@ -26,4 +26,4 @@ if (!$result) {
 
 }
 
-exit($result->response);
+exit($modx->toJSON($result->response));

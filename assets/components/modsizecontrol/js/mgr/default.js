@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     var queryUpdate = encodeURI('action=size/update');
     var modSizeControl = {
-        link: modSizeControlConfig.web_connector+queryUpdate,
+        link: modSizeControlConfig.web_connector+'?'+queryUpdate,
         ajax: function () {
             mSCElements.button.classList.add('x-item-disabled');
             mSCElements.chart.classList.add('loading');
@@ -22,12 +22,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (mSCRequest.readyState === 4) {
                     if (mSCRequest.status === 200) {
                         var data = JSON.parse(this.responseText);
-                        mSCElements.size.innerHTML = data.size;
-                        mSCElements.limit.innerHTML = data.limit;
-                        mSCElements.percent.innerHTML = data.percent + '%';
+                        if (!data.success) {
+                            MODx.msg.alert('Ошибка', data.message, function () {}, MODx);
+                            return;
+                        }
+                        mSCElements.size.innerHTML = data.object.size;
+                        mSCElements.limit.innerHTML = data.object.limit;
+                        mSCElements.percent.innerHTML = data.object.percent + '%';
 
                         if (data.percent > 100) {
-                            MODx.msg.alert(data.errorHeader, data.errorText, function () {}, MODx);
+                            MODx.msg.alert(data.object.errorHeader, data.object.errorText, function () {}, MODx);
                         }
 
                         mSCElements.chart.classList.remove('loading');

@@ -29,7 +29,7 @@ class SizeUpdateProcessor extends modProcessor
             return 'Не заданы источники файлов';
         }
         $this->patches = array();
-        $this->size = array();
+        $this->size = 0;
 
 
         return parent::initialize();
@@ -87,14 +87,16 @@ class SizeUpdateProcessor extends modProcessor
         foreach ($this->patches as $patch) {
             $this->size += $this->modSizeControl->dir_size($patch);
         }
-        if (!$this->size < 1) {
+        if ($this->size < 1) {
             return 'Проблема с получением размеров директорий';
         }
+
         return true;
     }
 
     public function caching()
     {
+
         /** @var modSystemSetting $option */
         $option = $this->modx->getObject('modSystemSetting', 'modsizecontrol_site_size');
         if (!$option) {
