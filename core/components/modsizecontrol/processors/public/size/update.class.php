@@ -51,8 +51,8 @@ class SizeUpdateProcessor extends modProcessor
             'percent' => $percent,
             'limit' => $this->modSizeControl->format_size($this->limit),
             'size' => $this->modSizeControl->format_size($this->size),
-            'errorHeader' => $this->modx->lexicon('ss_limit_out_header'),
-            'errorText' => $this->modx->lexicon('ss_limit_out_text'),
+            'errorHeader' => $this->modx->lexicon('modsizecontrol_limit_out_header'),
+            'errorText' => $this->modx->lexicon('modsizecontrol_limit_out_text'),
         );
 
         return $this->success('Обновление завершено успешно', $output);
