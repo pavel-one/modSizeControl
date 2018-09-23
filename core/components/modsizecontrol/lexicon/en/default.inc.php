@@ -5,6 +5,12 @@ $_lang['modsizecontrol'] = 'modSizeControl';
 $_lang['modsizecontrol_menu_desc'] = 'A sample Extra to develop from.';
 $_lang['modsizecontrol_intro_msg'] = 'You can select multiple items by holding Shift or Ctrl button.';
 
+$_lang['modsizecontrol_total'] = 'Total size of files:';
+$_lang['modsizecontrol_available'] = 'Available:';
+$_lang['modsizecontrol_limit_out_header'] = 'Site size limit exceeded';
+$_lang['modsizecontrol_limit_out_text'] = 'Contact the developer to extend the service package.';
+$_lang['modsizecontrol_refresh'] = 'Refresh';
+
 $_lang['modsizecontrol_items'] = 'Items';
 $_lang['modsizecontrol_item_id'] = 'Id';
 $_lang['modsizecontrol_item_name'] = 'Name';
