@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     var queryUpdate = encodeURI('action=size/update');
     var modSizeControl = {
-        link: modSizeControlConfig.web_connector+'?'+queryUpdate,
+        link: modSizeControlConfig.web_connector + '?' + queryUpdate,
         ajax: function () {
             mSCElements.button.classList.add('x-item-disabled');
             mSCElements.chart.classList.add('loading');
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
 
                         mSCElements.chart.classList.remove('loading');
-                        mSCElements.chart.innerHTML = modSizeControl.makesvg(data.percent);
+                        mSCElements.chart.innerHTML = modSizeControl.makesvg(data.object.percent);
                         mSCElements.button.classList.remove('x-item-disabled');
                     } else {
                         MODx.msg.alert('Ошибка', 'Произошла ошибка при запросе: ' + mSCRequest.status + ' ' + mSCRequest.statusText, function () {}, MODx);
