@@ -13,14 +13,14 @@ class SizeUpdateProcessor extends modProcessor
     {
         $this->modSizeControl = $this->modx->getService('modSizeControl', 'modSizeControl', MODX_CORE_PATH . 'components/modsizecontrol/model/', array());
         if (!$this->modSizeControl) {
-            return 'Не загружен класс';
+            return $this->modx->lexicon('modsizecontrol_err_class_exist');
         }
 
         $this->limit = $this->modSizeControl->config['limit'];
         $this->sources = explode(',', $this->modx->getOption('modsizecontrol_file_system'));
 
         if (!$this->sources) {
-            return 'Не заданы источники файлов';
+            return $this->modx->lexicon('modsizecontrol_err_filesystem_not_specified');
         }
         $this->patches = array();
         $this->size = 0;
@@ -53,9 +53,10 @@ class SizeUpdateProcessor extends modProcessor
             'size' => $this->modSizeControl->format_size($this->size),
             'errorHeader' => $this->modx->lexicon('modsizecontrol_limit_out_header'),
             'errorText' => $this->modx->lexicon('modsizecontrol_limit_out_text'),
+            'loadText' => $this->modx->lexicon('modsizecontrol_load_text')
         );
 
-        return $this->success('Обновление завершено успешно', $output);
+        return $this->success($this->modx->lexicon('modsizecontrol_success_update'), $output);
 
     }
 
@@ -71,7 +72,7 @@ class SizeUpdateProcessor extends modProcessor
             }
         }
         if (!$this->patches) {
-            return 'Не удалось получить источники';
+            return $this->modx->lexicon('modsizecontrol_err_filesystem_not_get');
         }
         return true;
     }
@@ -82,7 +83,7 @@ class SizeUpdateProcessor extends modProcessor
             $this->size += $this->modSizeControl->dir_size($patch);
         }
         if ($this->size < 1) {
-            return 'Проблема с получением размеров директорий';
+            return $this->modx->lexicon('modsizecontrol_err_directory_size');
         }
 
         return true;
@@ -94,11 +95,11 @@ class SizeUpdateProcessor extends modProcessor
         /** @var modSystemSetting $option */
         $option = $this->modx->getObject('modSystemSetting', 'modsizecontrol_site_size');
         if (!$option) {
-            return 'Не найдена кэш-настройка';
+            return $this->modx->lexicon('modsizecontrol_err_cache_setting');
         }
         $option->set('value', $this->size);
         if (!$option->save()) {
-            return 'Не удалось сохранить настройку';
+            return $this->modx->lexicon('modsizecontrol_err_save_setting');
         }
         $this->modx->cacheManager->refresh(array('system_settings' => array()));
 
