@@ -1,12 +1,12 @@
 <?php
 
 return [
-    'Контроль размера сайта' => [
-        'description' => 'Виджет вывода информации о занимаемом месте',
+    'modsizecontrol' => [
+        'description' => 'modsizecontrol_desc',
         'type' => 'file',
         'content' => '[[++core_path]]components/modsizecontrol/elements/widgets/widget.php',
         'namespace' => 'modsizecontrol',
-        'lexicon' => 'modsizecontrol:dashboards',
+        'lexicon' => 'modsizecontrol:default',
         'size' => 'half',
     ],
 ];

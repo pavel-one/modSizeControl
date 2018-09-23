@@ -2,6 +2,7 @@
 include_once 'setting.inc.php';
 
 $_lang['modsizecontrol'] = 'modSizeControl';
+$_lang['modsizecontrol_desc'] = 'Widget for displaying the size of a site or a separate folder';
 $_lang['modsizecontrol_menu_desc'] = 'A sample Extra to develop from.';
 $_lang['modsizecontrol_intro_msg'] = 'You can select multiple items by holding Shift or Ctrl button.';
 
