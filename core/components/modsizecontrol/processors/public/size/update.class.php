@@ -16,7 +16,7 @@ class SizeUpdateProcessor extends modProcessor
             return $this->modx->lexicon('modsizecontrol_err_class_exist');
         }
 
-        $this->limit = $this->modSizeControl->config['limit'];
+        $this->limit = ($this->modSizeControl->config['limit'] * 1024) * 1024;
         $this->sources = explode(',', $this->modx->getOption('modsizecontrol_file_system'));
 
         if (!$this->sources) {

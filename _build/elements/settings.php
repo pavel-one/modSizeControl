@@ -2,13 +2,13 @@
 
 return [
     'site_limit' => [
-        'xtype' => 'textfield',
-        'value' => '',
+        'xtype' => 'numberfield',
+        'value' => 1024,
         'area' => 'modsizecontrol_main',
     ],
     'site_size' => [
-        'xtype' => 'textfield',
-        'value' => '1073741824',
+        'xtype' => 'numberfield',
+        'value' => 1073741824,
         'area' => 'modsizecontrol_main',
     ],
     'file_system' => [

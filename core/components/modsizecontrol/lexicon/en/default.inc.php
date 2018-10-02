@@ -1,5 +1,6 @@
 <?php
 include_once 'setting.inc.php';
+include_once 'metrics.inc.php';
 
 $_lang['modsizecontrol'] = 'modSizeControl';
 $_lang['modsizecontrol_desc'] = 'Widget for displaying the size of a site or a separate folder';

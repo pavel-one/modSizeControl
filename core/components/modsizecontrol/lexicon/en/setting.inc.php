@@ -4,7 +4,7 @@ $_lang['area_modsizecontrol_main'] = 'Main';
 //TODO: довести до ума
 
 $_lang['setting_modsizecontrol_site_limit'] = 'Site limit';
-$_lang['setting_modsizecontrol_site_limit_desc'] = 'Enter the site size limit in bytes. Default value is 1073741824';
+$_lang['setting_modsizecontrol_site_limit_desc'] = 'Enter the site size limit in megabytes. Default value is 1024 i.e. 1 Gb';
 
 $_lang['setting_modsizecontrol_site_size'] = 'Site size';
 $_lang['setting_modsizecontrol_site_size_desc'] = 'Site size is stored here';

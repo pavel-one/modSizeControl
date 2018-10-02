@@ -32,18 +32,26 @@ class modSizeControl
             'web_connector' => $assetsUrl . 'action.php'
         ], $config);
 
+        $language = $this->modx->getObject('modSystemSetting', 'manager_language');
+        $lang = $language->get('value');
+
         $this->modx->addPackage('modsizecontrol', $this->config['modelPath']);
-        $this->modx->lexicon->load('modsizecontrol:default');
+        $this->modx->lexicon->load($lang.':modsizecontrol:default');
     }
 
     // Функция форматирует вывод размера
     public function format_size($size)
     {
-        $metrics[0] = 'байт';
-        $metrics[1] = 'Кбайт';
-        $metrics[2] = 'Мбайт';
-        $metrics[3] = 'Гбайт';
-        $metrics[4] = 'Тбайт';
+
+        $language = $this->modx->getObject('modSystemSetting', 'manager_language');
+        $lang = $language->get('value');
+        $this->modx->lexicon->load($lang.':modsizecontrol:default');
+
+        $metrics[0] = $this->modx->lexicon('modsizecontrol_metrics_byte', array(), $lang) ?: 'b';
+        $metrics[1] = $this->modx->lexicon('modsizecontrol_metrics_kilobyte', array(), $lang) ?: 'kb';
+        $metrics[2] = $this->modx->lexicon('modsizecontrol_metrics_megabyte', array(), $lang) ?: 'Mb';
+        $metrics[3] = $this->modx->lexicon('modsizecontrol_metrics_gigabyte', array(), $lang) ?: 'Gb';
+        $metrics[4] = $this->modx->lexicon('modsizecontrol_metrics_terabyte', array(), $lang) ?: 'Tb';
         $metric = 0;
         while (floor($size / 1024) > 0) {
             ++$metric;
