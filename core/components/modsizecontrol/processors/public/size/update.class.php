@@ -22,6 +22,11 @@ class SizeUpdateProcessor extends modProcessor
         if (!$this->sources) {
             return $this->modx->lexicon('modsizecontrol_err_filesystem_not_specified');
         }
+
+        if (in_array(1, $this->sources)) {
+            $this->sources = array(1);
+        }
+
         $this->patches = array();
         $this->size = 0;
 
