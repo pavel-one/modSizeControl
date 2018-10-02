@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         var data = JSON.parse(this.responseText);
                         if (!data.success) {
                             MODx.msg.alert('Ошибка', data.message, function () {}, MODx);
+                            mSCElements.percent.innerHTML = 'Ошибка'; // TODO: Текст нужно забирать из лексикона
+                            mSCElements.button.classList.remove('x-item-disabled');
                             return;
                         }
                         mSCElements.size.innerHTML = data.object.size;
@@ -39,6 +41,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         mSCElements.button.classList.remove('x-item-disabled');
                     } else {
                         MODx.msg.alert('Ошибка', 'Произошла ошибка при запросе: ' + mSCRequest.status + ' ' + mSCRequest.statusText, function () {}, MODx);
+                        MODx.msg.alert('Ошибка', data.message, function () {}, MODx);
+                        mSCElements.percent.innerHTML = 'Ошибка'; // TODO: Текст нужно забирать из лексикона
                     }
                 }
             };
