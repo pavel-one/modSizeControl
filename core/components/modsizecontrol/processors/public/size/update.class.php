@@ -62,6 +62,7 @@ class SizeUpdateProcessor extends modProcessor
             ));
         }
 
+
         $setPatches = $this->setPatches();
         if ($setPatches !== true) {
             return $this->failure($setPatches);
