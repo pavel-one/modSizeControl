@@ -37,7 +37,7 @@ class modSizeControl
         $lang = $language->get('value');
 
         $this->modx->addPackage('modsizecontrol', $this->config['modelPath']);
-        $this->modx->lexicon->load($lang.':modsizecontrol:default');
+        $this->modx->lexicon->load($lang . ':modsizecontrol:default');
     }
 
     // Функция форматирует вывод размера
@@ -46,7 +46,7 @@ class modSizeControl
 
         $language = $this->modx->getObject('modSystemSetting', 'manager_language');
         $lang = $language->get('value');
-        $this->modx->lexicon->load($lang.':modsizecontrol:default');
+        $this->modx->lexicon->load($lang . ':modsizecontrol:default');
 
         $metrics[0] = $this->modx->lexicon('modsizecontrol_metrics_byte', array(), $lang) ?: 'b';
         $metrics[1] = $this->modx->lexicon('modsizecontrol_metrics_kilobyte', array(), $lang) ?: 'kb';
@@ -68,7 +68,7 @@ class modSizeControl
 
         if (is_dir($dir) === true) {
             $totalSize = 0;
-            $os        = strtoupper(substr(PHP_OS, 0, 3));
+            $os = strtoupper(substr(PHP_OS, 0, 3));
             // If on a Unix Host (Linux, Mac OS)
             if ($os !== 'WIN') {
                 $io = popen('/usr/bin/du -sb ' . $dir, 'r');
@@ -82,9 +82,9 @@ class modSizeControl
             if ($os === 'WIN' && extension_loaded('com_dotnet')) {
                 $obj = new \COM('scripting.filesystemobject');
                 if (is_object($obj)) {
-                    $ref       = $obj->getfolder($dir);
+                    $ref = $obj->getfolder($dir);
                     $totalSize = $ref->size;
-                    $obj       = null;
+                    $obj = null;
                     return $totalSize;
                 }
             }
@@ -97,6 +97,11 @@ class modSizeControl
         } else if (is_file($dir) === true) {
             return filesize($dir);
         }
+    }
+
+    public function checkSize($file)
+    {
+        //TODO: #8
     }
 
 }
