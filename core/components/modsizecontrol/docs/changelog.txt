@@ -4,6 +4,8 @@ Changelog for modSizeControl.
 ==============
 - Added protection update
 - Added detection of free disk space
+- Remove setting
+- Added caching for 12 hours
 
 1.0.3-beta
 ==============

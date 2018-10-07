@@ -20,7 +20,7 @@ class SizeUpdateProcessor extends modProcessor
         if (!$_SESSION['modSizeUpdate']) {
             $_SESSION['modSizeUpdate'] = time();
         } else {
-            $check = $_SESSION['modSizeUpdate'] + 60;
+            $check = $_SESSION['modSizeUpdate'] + 5;
             if (time() < $check) {
                 return 'Слишком частый запрос обновления';
             } else {
@@ -48,6 +48,20 @@ class SizeUpdateProcessor extends modProcessor
 
     public function process()
     {
+
+        if ($this->size = $this->modx->cacheManager->get('modSizeControl')) {
+            $percent = $this->limit / 100;
+            $percent = ceil($this->size / $percent);
+            return $this->success($this->modx->lexicon('modsizecontrol_success_update'), array(
+                'percent' => $percent,
+                'limit' => $this->modSizeControl->format_size($this->limit),
+                'size' => $this->modSizeControl->format_size($this->size),
+                'errorHeader' => $this->modx->lexicon('modsizecontrol_limit_out_header'),
+                'errorText' => $this->modx->lexicon('modsizecontrol_limit_out_text'),
+                'loadText' => $this->modx->lexicon('modsizecontrol_load_text')
+            ));
+        }
+
         $setPatches = $this->setPatches();
         if ($setPatches !== true) {
             return $this->failure($setPatches);
@@ -109,16 +123,7 @@ class SizeUpdateProcessor extends modProcessor
     public function caching()
     {
 
-        /** @var modSystemSetting $option */
-        $option = $this->modx->getObject('modSystemSetting', 'modsizecontrol_site_size');
-        if (!$option) {
-            return $this->modx->lexicon('modsizecontrol_err_cache_setting');
-        }
-        $option->set('value', $this->size);
-        if (!$option->save()) {
-            return $this->modx->lexicon('modsizecontrol_err_save_setting');
-        }
-        $this->modx->cacheManager->refresh(array('system_settings' => array()));
+        $this->modx->cacheManager->set('modSizeControl', $this->size, 43200); //12 hour
 
         return true;
     }
