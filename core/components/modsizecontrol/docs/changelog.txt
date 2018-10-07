@@ -3,7 +3,7 @@ Changelog for modSizeControl.
 1.0.4-beta
 ==============
 - Added protection update
-
+- Added detection of free disk space
 
 1.0.3-beta
 ==============

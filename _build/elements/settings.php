@@ -3,7 +3,7 @@
 return [
     'site_limit' => [
         'xtype' => 'numberfield',
-        'value' => 1024,
+        'value' => disk_free_space(MODX_BASE_PATH) / 1024 / 1024,
         'area' => 'modsizecontrol_main',
     ],
     'site_size' => [
