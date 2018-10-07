@@ -58,7 +58,8 @@ class SizeUpdateProcessor extends modProcessor
                 'size' => $this->modSizeControl->format_size($this->size),
                 'errorHeader' => $this->modx->lexicon('modsizecontrol_limit_out_header'),
                 'errorText' => $this->modx->lexicon('modsizecontrol_limit_out_text'),
-                'loadText' => $this->modx->lexicon('modsizecontrol_load_text')
+                'loadText' => $this->modx->lexicon('modsizecontrol_load_text'),
+                'clearSize' => $this->size
             ));
         }
 
@@ -85,7 +86,8 @@ class SizeUpdateProcessor extends modProcessor
             'size' => $this->modSizeControl->format_size($this->size),
             'errorHeader' => $this->modx->lexicon('modsizecontrol_limit_out_header'),
             'errorText' => $this->modx->lexicon('modsizecontrol_limit_out_text'),
-            'loadText' => $this->modx->lexicon('modsizecontrol_load_text')
+            'loadText' => $this->modx->lexicon('modsizecontrol_load_text'),
+            'clearSize' => $this->size
         );
 
         return $this->success($this->modx->lexicon('modsizecontrol_success_update'), $output);

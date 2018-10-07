@@ -10,13 +10,14 @@ class modSizeControl
      * @param modX $modx
      * @param array $config
      */
-    function __construct(modX &$modx, array $config = [])
+    function __construct(modX &$modx, array $config = array())
     {
+
         $this->modx =& $modx;
         $corePath = MODX_CORE_PATH . 'components/modsizecontrol/';
         $assetsUrl = MODX_ASSETS_URL . 'components/modsizecontrol/';
 
-        $this->config = array_merge([
+        $this->config = array_merge(array(
             'corePath' => $corePath,
             'modelPath' => $corePath . 'model/',
             'processorsPath' => $corePath . 'processors/',
@@ -28,9 +29,9 @@ class modSizeControl
             'jsUrl' => $assetsUrl . 'js/',
             'tpl' => $this->modx->getOption('modsizecontrol_tpl'),
             'limit' => $this->modx->getOption('modsizecontrol_site_limit') ?: 1073741824,
-            'site_size' => $this->modx->getOption('modsizecontrol_site_size'),
+            'site_size' => $this->modx->cacheManager->get('modSizeControl') ?: 0,
             'web_connector' => $assetsUrl . 'action.php'
-        ], $config);
+        ), $config);
 
         $language = $this->modx->getObject('modSystemSetting', 'manager_language');
         $lang = $language->get('value');
