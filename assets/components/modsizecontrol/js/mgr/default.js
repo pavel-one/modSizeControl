@@ -75,4 +75,5 @@ document.addEventListener('DOMContentLoaded', function () {
     if (mSCElements.button) mSCElements.button.onclick = modSizeControl.ajax;
 
     if (mSCElements.chart) mSCElements.chart.innerHTML = modSizeControl.makesvg(mSCElements.chart.dataset.percentage);
+    modSizeControl.ajax();
 });
