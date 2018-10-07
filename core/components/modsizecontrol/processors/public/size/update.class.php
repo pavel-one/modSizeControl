@@ -16,6 +16,18 @@ class SizeUpdateProcessor extends modProcessor
             return $this->modx->lexicon('modsizecontrol_err_class_exist');
         }
 
+
+        if (!$_SESSION['modSizeUpdate']) {
+            $_SESSION['modSizeUpdate'] = time();
+        } else {
+            $check = $_SESSION['modSizeUpdate'] + 60;
+            if (time() < $check) {
+                return 'Слишком частый запрос обновления';
+            } else {
+                $_SESSION['modSizeUpdate'] = time();
+            }
+        }
+
         $this->limit = ($this->modSizeControl->config['limit'] * 1024) * 1024;
         $this->sources = explode(',', $this->modx->getOption('modsizecontrol_file_system'));
 

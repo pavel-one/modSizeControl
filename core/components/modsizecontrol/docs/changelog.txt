@@ -1,5 +1,14 @@
 Changelog for modSizeControl.
 
+1.0.4-beta
+==============
+- Added protection update
+
+
+1.0.3-beta
+==============
+- Refactor update size
+
 1.0.2-beta
 ==============
 - Remove init pdoTools from processor
