@@ -1,5 +1,5 @@
 <?php
-if ($modx->event->name != 'OnManagerPageInit') return;
+if ($modx->event->name != 'OnManagerPageInit' || $action != 'welcome') return;
 /** @var modSizeControl $modSizeControl */
 $modSizeControl = $modx->getService('modSizeControl', 'modSizeControl', MODX_CORE_PATH . 'components/modsizecontrol/model/', array());
 
