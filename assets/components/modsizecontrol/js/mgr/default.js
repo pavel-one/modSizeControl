@@ -10,11 +10,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var queryUpdate = encodeURI('action=size/update');
     var modSizeControl = {
         link: modSizeControlConfig.web_connector + '?' + queryUpdate,
+        percent: mSCElements.percent.dataset.percentage,
         ajax: function () {
             mSCElements.button.classList.add('x-item-disabled');
             mSCElements.chart.classList.add('loading');
             mSCElements.chart.innerHTML = modSizeControl.makesvg(100);
-            mSCElements.percent.innerHTML = 'Загрузка'; // TODO: Текст нужно забирать из лексикона
+            mSCElements.percent.innerHTML = modSizeControlConfig.loading_text;
             var mSCRequest = new XMLHttpRequest();
             mSCRequest.open('GET', modSizeControl.link);
 
@@ -23,26 +24,32 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (mSCRequest.status === 200) {
                         var data = JSON.parse(this.responseText);
                         if (!data.success) {
-                            MODx.msg.alert('Ошибка', data.message, function () {}, MODx);
-                            mSCElements.percent.innerHTML = 'Ошибка'; // TODO: Текст нужно забирать из лексикона
+                            MODx.msg.alert(modSizeControlConfig.error_text, data.message, function () {}, MODx);
+                            mSCElements.percent.innerHTML = modSizeControlConfig.error_text;
                             mSCElements.button.classList.remove('x-item-disabled');
+
+                            setTimeout(function () {
+                                mSCElements.chart.classList.remove('loading');
+                                mSCElements.percent.innerHTML = modSizeControl.percent + '%';
+                                mSCElements.chart.innerHTML = modSizeControl.makesvg(modSizeControl.percent);
+                            }, 2000);
+
                             return;
                         }
                         mSCElements.size.innerHTML = data.object.size;
                         mSCElements.limit.innerHTML = data.object.limit;
                         mSCElements.percent.innerHTML = data.object.percent + '%';
+                        modSizeControl.percent = data.object.percent;
 
-                        if (data.percent > 100) {
-                            MODx.msg.alert(data.object.errorHeader, data.object.errorText, function () {}, MODx);
-                        }
+                        if (data.percent > 100) MODx.msg.alert(data.object.errorHeader, data.object.errorText, function () {}, MODx);
 
                         mSCElements.chart.classList.remove('loading');
                         mSCElements.chart.innerHTML = modSizeControl.makesvg(data.object.percent);
                         mSCElements.button.classList.remove('x-item-disabled');
                     } else {
-                        MODx.msg.alert('Ошибка', 'Произошла ошибка при запросе: ' + mSCRequest.status + ' ' + mSCRequest.statusText, function () {}, MODx);
-                        MODx.msg.alert('Ошибка', data.message, function () {}, MODx);
-                        mSCElements.percent.innerHTML = 'Ошибка'; // TODO: Текст нужно забирать из лексикона
+                        MODx.msg.alert(modSizeControlConfig.error_text, 'Произошла ошибка при запросе: ' + mSCRequest.status + ' ' + mSCRequest.statusText, function () {}, MODx);
+                        MODx.msg.alert(modSizeControlConfig.error_text, data.message, function () {}, MODx);
+                        mSCElements.percent.innerHTML = modSizeControlConfig.error_text;
                     }
                 }
             };

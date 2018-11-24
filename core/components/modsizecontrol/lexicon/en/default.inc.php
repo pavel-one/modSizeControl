@@ -14,12 +14,14 @@ $_lang['modsizecontrol_limit_out_text'] = 'Contact the developer to extend the s
 $_lang['modsizecontrol_refresh'] = 'Refresh';
 $_lang['modsizecontrol_load_text'] = 'Loading';
 
+$_lang['modsizecontrol_err_error'] = 'Error';
 $_lang['modsizecontrol_err_class_exist'] = 'Class not loaded';
 $_lang['modsizecontrol_err_filesystem_not_specified'] = 'No file sources specified';
 $_lang['modsizecontrol_err_filesystem_not_get'] = 'Could not get sources';
 $_lang['modsizecontrol_err_directory_size'] = 'The problem with obtaining directory sizes';
 $_lang['modsizecontrol_err_cache_setting'] = 'Cache setting not found';
 $_lang['modsizecontrol_err_save_setting'] = 'Failed to save setting';
+$_lang['modsizecontrol_err_frequent_update'] = 'Too frequent update request';
 
 $_lang['modsizecontrol_success_update'] = 'Update completed successfully';
 

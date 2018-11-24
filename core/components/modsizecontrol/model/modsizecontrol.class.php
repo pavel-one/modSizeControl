@@ -17,6 +17,10 @@ class modSizeControl
         $corePath = MODX_CORE_PATH . 'components/modsizecontrol/';
         $assetsUrl = MODX_ASSETS_URL . 'components/modsizecontrol/';
 
+        $lang = $this->modx->getOption('manager_language');
+        $this->modx->setOption('cultureKey', $lang);
+        $this->modx->lexicon->load('modsizecontrol:default');
+
         $this->config = array_merge(array(
             'corePath' => $corePath,
             'modelPath' => $corePath . 'model/',
@@ -30,24 +34,17 @@ class modSizeControl
             'tpl' => $this->modx->getOption('modsizecontrol_tpl'),
             'limit' => $this->modx->getOption('modsizecontrol_site_limit') ?: 1073741824,
             'site_size' => $this->modx->cacheManager->get('modSizeControl') ?: 0,
-            'web_connector' => $assetsUrl . 'action.php'
+            'web_connector' => $assetsUrl . 'action.php',
+            'loading_text' => $this->modx->lexicon('modsizecontrol_load_text', array(), $lang) ?: 'Loading',
+            'error_text' => $this->modx->lexicon('modsizecontrol_err_error', array(), $lang) ?: 'Error'
         ), $config);
-
-        $language = $this->modx->getObject('modSystemSetting', 'manager_language');
-        $lang = $language->get('value');
-
+        
         $this->modx->addPackage('modsizecontrol', $this->config['modelPath']);
-        $this->modx->lexicon->load($lang . ':modsizecontrol:default');
     }
 
     // Функция форматирует вывод размера
     public function format_size($size)
     {
-
-        $language = $this->modx->getObject('modSystemSetting', 'manager_language');
-        $lang = $language->get('value');
-        $this->modx->lexicon->load($lang . ':modsizecontrol:default');
-
         $metrics[0] = $this->modx->lexicon('modsizecontrol_metrics_byte', array(), $lang) ?: 'b';
         $metrics[1] = $this->modx->lexicon('modsizecontrol_metrics_kilobyte', array(), $lang) ?: 'kb';
         $metrics[2] = $this->modx->lexicon('modsizecontrol_metrics_megabyte', array(), $lang) ?: 'Mb';

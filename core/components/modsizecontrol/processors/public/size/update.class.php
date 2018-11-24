@@ -11,6 +11,10 @@ class SizeUpdateProcessor extends modProcessor
 
     public function initialize()
     {
+        $lang = $this->modx->getOption('manager_language');
+        $this->modx->setOption('cultureKey', $lang);
+        $this->modx->lexicon->load('modsizecontrol:default');
+        
         $this->modSizeControl = $this->modx->getService('modSizeControl', 'modSizeControl', MODX_CORE_PATH . 'components/modsizecontrol/model/', array());
         if (!$this->modSizeControl) {
             return $this->modx->lexicon('modsizecontrol_err_class_exist');
@@ -22,7 +26,7 @@ class SizeUpdateProcessor extends modProcessor
         } else {
             $check = $_SESSION['modSizeUpdate'] + 5;
             if (time() < $check) {
-                return 'Слишком частый запрос обновления';
+                return $this->modx->lexicon('modsizecontrol_err_frequent_update');
             } else {
                 $_SESSION['modSizeUpdate'] = time();
             }
