@@ -1,21 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var mSCElements = {
-        button: document.getElementById('modsizecontrol-send'),
-        size: document.getElementById('modsizecontrol-size'),
-        limit: document.getElementById('modsizecontrol-limit'),
-        percent: document.getElementById('modsizecontrol-percent'),
-        error: document.getElementsByClassName('modsizecontrol-error'),
-        chart: document.getElementById("modsizecontrol-circlechart")
-    };
     var queryUpdate = encodeURI('action=size/update');
     var modSizeControl = {
         link: modSizeControlConfig.web_connector + '?' + queryUpdate,
-        percent: mSCElements.percent.dataset.percentage,
+        elements: {
+            button: document.getElementById('modsizecontrol-send'),
+            size: document.getElementById('modsizecontrol-size'),
+            limit: document.getElementById('modsizecontrol-limit'),
+            percent: document.getElementById('modsizecontrol-percent'),
+            error: document.getElementsByClassName('modsizecontrol-error'),
+            chart: document.getElementById("modsizecontrol-circlechart")
+        },
         ajax: function () {
-            mSCElements.button.classList.add('x-item-disabled');
-            mSCElements.chart.classList.add('loading');
-            mSCElements.chart.innerHTML = modSizeControl.makesvg(100);
-            mSCElements.percent.innerHTML = modSizeControlConfig.loading_text;
+            modSizeControl.elements.button.classList.add('x-item-disabled');
+            modSizeControl.elements.chart.classList.add('loading');
+            modSizeControl.elements.chart.innerHTML = modSizeControl.makesvg(100);
+            modSizeControl.elements.percent.innerHTML = modSizeControlConfig.loading_text;
             var mSCRequest = new XMLHttpRequest();
             mSCRequest.open('GET', modSizeControl.link);
 
@@ -25,31 +24,32 @@ document.addEventListener('DOMContentLoaded', function () {
                         var data = JSON.parse(this.responseText);
                         if (!data.success) {
                             MODx.msg.alert(modSizeControlConfig.error_text, data.message, function () {}, MODx);
-                            mSCElements.percent.innerHTML = modSizeControlConfig.error_text;
-                            mSCElements.button.classList.remove('x-item-disabled');
+                            modSizeControl.elements.percent.innerHTML = modSizeControlConfig.error_text;
 
                             setTimeout(function () {
-                                mSCElements.chart.classList.remove('loading');
-                                mSCElements.percent.innerHTML = modSizeControl.percent + '%';
-                                mSCElements.chart.innerHTML = modSizeControl.makesvg(modSizeControl.percent);
+                                modSizeControl.elements.chart.classList.remove('loading');
+                                modSizeControl.elements.button.classList.remove('x-item-disabled');
+                                modSizeControl.elements.percent.innerHTML = modSizeControl.percent + '%';
+                                modSizeControl.elements.chart.innerHTML = modSizeControl.makesvg(modSizeControl.percent);
                             }, 2000);
 
                             return;
                         }
-                        mSCElements.size.innerHTML = data.object.size;
-                        mSCElements.limit.innerHTML = data.object.limit;
-                        mSCElements.percent.innerHTML = data.object.percent + '%';
+                        modSizeControl.elements.size.innerHTML = data.object.size;
+                        modSizeControl.elements.limit.innerHTML = data.object.limit;
+                        modSizeControl.elements.percent.innerHTML = data.object.percent + '%';
                         modSizeControl.percent = data.object.percent;
 
-                        if (data.percent > 100) MODx.msg.alert(data.object.errorHeader, data.object.errorText, function () {}, MODx);
+                        modSizeControl.elements.chart.classList.remove('loading');
+                        modSizeControl.elements.chart.innerHTML = modSizeControl.makesvg(data.object.percent);
+                        modSizeControl.elements.button.classList.remove('x-item-disabled');
 
-                        mSCElements.chart.classList.remove('loading');
-                        mSCElements.chart.innerHTML = modSizeControl.makesvg(data.object.percent);
-                        mSCElements.button.classList.remove('x-item-disabled');
+                        if (data.object.percent > 100) MODx.msg.alert(data.object.errorHeader, data.object.errorText, function () {}, MODx); // ! Нужно выяснить: Почему MODx.msg.alert() после Ctrl + F5 недоступен 
+
                     } else {
                         MODx.msg.alert(modSizeControlConfig.error_text, 'Произошла ошибка при запросе: ' + mSCRequest.status + ' ' + mSCRequest.statusText, function () {}, MODx);
                         MODx.msg.alert(modSizeControlConfig.error_text, data.message, function () {}, MODx);
-                        mSCElements.percent.innerHTML = modSizeControlConfig.error_text;
+                        modSizeControl.elements.percent.innerHTML = modSizeControlConfig.error_text;
                     }
                 }
             };
@@ -57,21 +57,18 @@ document.addEventListener('DOMContentLoaded', function () {
             mSCRequest.send(null);
         },
         makesvg: function (percentage) {
-            var abs_percentage = Math.abs(percentage).toString();
-            var classes = '';
+            var classes = 'modsizecontrol-success-stroke';
 
             if (percentage >= 50 && percentage <= 75) {
                 classes = 'modsizecontrol-warning-stroke';
             } else if (percentage > 75) {
                 classes = 'modsizecontrol-danger-stroke';
-            } else {
-                classes = 'modsizecontrol-success-stroke';
             }
 
             var svg = '<svg class="modsizecontrol-circle-chart" viewbox="0 0 33.83098862 33.83098862" xmlns="http://www.w3.org/2000/svg">' +
                 '<circle class="modsizecontrol-circle-chart-background" cx="16.9" cy="16.9" r="15.9" />' +
                 '<circle class="modsizecontrol-circle-chart-circle ' + classes + '"' +
-                'stroke-dasharray="' + abs_percentage + ',100"    cx="16.9" cy="16.9" r="15.9" />';
+                'stroke-dasharray="' + percentage + ',100"    cx="16.9" cy="16.9" r="15.9" />';
 
             svg += ' </g></svg>';
 
@@ -79,8 +76,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    if (mSCElements.button) mSCElements.button.onclick = modSizeControl.ajax;
+    modSizeControl['percent'] = modSizeControl.elements.percent.dataset.percentage;
+    modSizeControl.elements.button.onclick = modSizeControl.ajax;
+    modSizeControl.elements.chart.innerHTML = modSizeControl.makesvg(modSizeControl.elements.chart.dataset.percentage);
 
-    if (mSCElements.chart) mSCElements.chart.innerHTML = modSizeControl.makesvg(mSCElements.chart.dataset.percentage);
-    modSizeControl.ajax();
+    setTimeout(function () {
+        modSizeControl.ajax();
+    }, 1000);
 });
