@@ -17,23 +17,25 @@ switch($modx->event->name) {
         $modx->regClientStartupScript($modSizeControl->config['jsUrl'] . 'mgr/default.js');
         break;
     case 'OnFileManagerBeforeUpload':
-        $limit = ($modSizeControl->config['limit'] * 1024) * 1024;      // Узнаем лимит
-        
-        $response = $modx->runProcessor('size/update', array(), array(
-            'processors_path' => $modSizeControl->config['publicProcessors']
-        ));
-
-        // ? Процессор в первый раз срабатывает, но второй раз нет, по видимому из-за ограничения по времени, но запускать нужно, ведь при установке и обновлении размер сайта будет неизвестен
-
-        $site_size = $response->response['object']['clearSize'] ?: $modx->cacheManager->get('modSizeControl');
-        $available = $limit - $site_size;
-        $total = $site_size + $file['size'];
-
-        if($file['size'] > $available) {
-            $modx->event->params['file']['error'] = 1;
-            $source->addError('limit', $modx->lexicon('modsizecontrol_limit_out_header'));
+        if($modx->getOption('modsizecontrol_control')) {
+            $limit = ($modSizeControl->config['limit'] * 1024) * 1024;
+            
+            $response = $modx->runProcessor('size/update', array(), array(
+                'processors_path' => $modSizeControl->config['publicProcessors']
+            ));
+    
+            $site_size = $response->response['object']['clearSize'] ?: $modx->cacheManager->get('modSizeControl');
+            $available = $limit - $site_size;
+            $total = $site_size + $file['size'];
+    
+            if($file['size'] > $available) {
+                $modx->event->params['file']['error'] = 1;
+                $source->addError('limit', $modx->lexicon('modsizecontrol_limit_out_header'));
+            } else {
+                $modx->cacheManager->set('modSizeControl', $total, 43200);
+            }
         } else {
-            $modx->cacheManager->set('modSizeControl', $total, 43200);
+            $modx->cacheManager->delete('modSizeControl');
         }
         
         break;

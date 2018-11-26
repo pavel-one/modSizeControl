@@ -15,5 +15,10 @@ return [
         'xtype' => 'textfield',
         'value' => 'tpl.modSizeControl',
         'area' => 'modsizecontrol_main',
+    ],
+    'control' => [
+        'xtype' => 'combo-boolean',
+        'value' => 0,
+        'area' => 'modsizecontrol_main',
     ]
 ];

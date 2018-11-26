@@ -7,10 +7,10 @@ return [
         'events' => [
             'OnManagerPageInit' => [],
             'OnFileManagerBeforeUpload' => [],
+            'OnFileManagerDirRemove' => [],
             'OnFileManagerFileCreate' => [],
             'OnFileManagerFileRemove' => [],
             'OnFileManagerFileUpdate' => [],
-            'OnFileManagerDirRemove' => [],
         ],
     ],
 ];
