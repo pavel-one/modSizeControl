@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         modSizeControl.elements.size.innerHTML = data.object.size;
                         modSizeControl.elements.limit.innerHTML = data.object.limit;
                         modSizeControl.elements.percent.innerHTML = data.object.percent + '%';
-                        modSizeControl.percent = data.object.percent;
+                        modSizeControl['percent'] = data.object.percent;
 
                         modSizeControl.elements.chart.classList.remove('loading');
                         modSizeControl.elements.chart.innerHTML = modSizeControl.makesvg(data.object.percent);
@@ -66,9 +66,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             var svg = '<svg class="modsizecontrol-circle-chart" viewbox="0 0 33.83098862 33.83098862" xmlns="http://www.w3.org/2000/svg">' +
-                '<circle class="modsizecontrol-circle-chart-background" cx="16.9" cy="16.9" r="15.9" />' +
+                '<circle class="modsizecontrol-circle-chart-background" cx="16.9" cy="16.9" r="15" />' +
                 '<circle class="modsizecontrol-circle-chart-circle ' + classes + '"' +
-                'stroke-dasharray="' + percentage + ',100"    cx="16.9" cy="16.9" r="15.9" />';
+                'stroke-dasharray="' + percentage + ',100"    cx="16.9" cy="16.9" r="15" />';
 
             svg += ' </g></svg>';
 
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    modSizeControl['percent'] = modSizeControl.elements.percent.dataset.percentage;
+    modSizeControl['percent'] = modSizeControl.elements.chart.dataset.percentage;
     modSizeControl.elements.button.onclick = modSizeControl.ajax;
     modSizeControl.elements.chart.innerHTML = modSizeControl.makesvg(modSizeControl.elements.chart.dataset.percentage);
 

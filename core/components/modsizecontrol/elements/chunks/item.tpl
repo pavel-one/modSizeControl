@@ -2,15 +2,16 @@
     <div id="modsizecontrol-wrapper">
         <div class="modsizecontrol-column">
             <div class="modsizecontrol-item">
-                <span class="modsizecontrol-small-text">{'modsizecontrol_total' | lexicon}</span>
-                <span id="modsizecontrol-size" class="modsizecontrol-text">{$size}</span>
+                <span class="modsizecontrol-text-sm">{'modsizecontrol_total' | lexicon}</span>
+                <span id="modsizecontrol-size" class="modsizecontrol-text modsizecontrol-text-lg">{$size}</span>
             </div>
             <div class="modsizecontrol-item">
-                <span class="modsizecontrol-small-text">{'modsizecontrol_available' | lexicon}</span>
+                <span class="modsizecontrol-text-sm">{'modsizecontrol_available' | lexicon}</span>
                 <span id="modsizecontrol-limit" class="modsizecontrol-text modsizecontrol-text-muted">{$limit}</span>
             </div>
             <div class="modsizecontrol-item">
-                <button id="modsizecontrol-send" class="x-btn x-btn-small x-btn-icon-small-left primary-button x-btn-noicon">
+                <button id="modsizecontrol-send" class="x-btn x-btn-text primary-button">
+                    <i class="icon icon-refresh"></i>&nbsp;
                     {'modsizecontrol_refresh' | lexicon}
                 </button>
             </div>

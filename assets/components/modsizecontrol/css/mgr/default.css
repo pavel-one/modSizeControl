@@ -16,8 +16,12 @@
     font-size: 24px
 }
 
-.modsizecontrol-small-text {
+.modsizecontrol-text-sm {
     font-size: 11px;
+}
+
+.modsizecontrol-text-lg {
+    font-size: 32px;
 }
 
 .modsizecontrol-text-muted {
@@ -38,24 +42,24 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    font-size: 42px;
-    color: #cdcdcd;
+    font-size: 32px;
+    color: #999;
     font-weight: bold;
     transform: translate(-50%, -50%);
 }
 
 .modsizecontrol-circle-chart-circle {
     stroke: #00acc1;
-    stroke-width: 1;
-    stroke-linecap: square;
+    stroke-width: 3;
+    stroke-linecap: round;
     fill: none;
-    animation: modsizecontrol-circle-chart-fill 2s reverse;
+    animation: modsizecontrol-circle-chart-fill 2s reverse ease-in-out;
     transform: rotate(-90deg);
     transform-origin: center;
 }
 
 .modsizecontrol-circlechart.loading .modsizecontrol-circle-chart-circle {
-    animation: modsizecontrol-circle-chart-loading 2s alternate-reverse infinite;
+    animation: modsizecontrol-circle-chart-loading 2s alternate-reverse infinite ease-in-out;
 }
 
 .modsizecontrol-circlechart.loading+.modsizecontrol-info {
@@ -68,7 +72,7 @@
 
 .modsizecontrol-circle-chart-background {
     stroke: #efefef;
-    stroke-width: 2;
+    stroke-width: 3;
     fill: none;
 }
 
