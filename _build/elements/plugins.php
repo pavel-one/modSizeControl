@@ -6,6 +6,11 @@ return [
         'description' => 'Подключение скриптов',
         'events' => [
             'OnManagerPageInit' => [],
+            'OnFileManagerBeforeUpload' => [],
+            'OnFileManagerFileCreate' => [],
+            'OnFileManagerFileRemove' => [],
+            'OnFileManagerFileUpdate' => [],
+            'OnFileManagerDirRemove' => [],
         ],
     ],
 ];
