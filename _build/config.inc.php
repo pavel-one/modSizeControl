@@ -11,7 +11,7 @@ if (!defined('MODX_CORE_PATH')) {
 return [
     'name' => 'modSizeControl',
     'name_lower' => 'modsizecontrol',
-    'version' => '1.0.6',
+    'version' => '1.0.7',
     'release' => 'beta',
     // Install package to site right after build
     'install' => true,
