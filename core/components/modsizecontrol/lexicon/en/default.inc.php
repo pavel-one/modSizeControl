@@ -15,6 +15,7 @@ $_lang['modsizecontrol_refresh'] = 'Refresh';
 $_lang['modsizecontrol_load_text'] = 'Loading';
 
 $_lang['modsizecontrol_err_error'] = 'Error';
+$_lang['modsizecontrol_err_unknown'] = 'Unknown';
 $_lang['modsizecontrol_err_class_exist'] = 'Class not loaded';
 $_lang['modsizecontrol_err_filesystem_not_specified'] = 'No file sources specified';
 $_lang['modsizecontrol_err_filesystem_not_get'] = 'Could not get sources';

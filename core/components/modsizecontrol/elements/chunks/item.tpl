@@ -3,7 +3,8 @@
         <div class="modsizecontrol-column">
             <div class="modsizecontrol-item">
                 <span class="modsizecontrol-text-sm">{'modsizecontrol_total' | lexicon}</span>
-                <span id="modsizecontrol-size" class="modsizecontrol-text modsizecontrol-text-lg">{$size}</span>
+                <span id="modsizecontrol-size" class="modsizecontrol-text modsizecontrol-text-lg">{$size ?:
+                    'modsizecontrol_err_unknown' | lexicon}</span>
             </div>
             <div class="modsizecontrol-item">
                 <span class="modsizecontrol-text-sm">{'modsizecontrol_available' | lexicon}</span>

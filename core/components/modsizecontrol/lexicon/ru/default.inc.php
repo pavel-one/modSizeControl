@@ -15,6 +15,7 @@ $_lang['modsizecontrol_refresh'] = 'Обновить данные';
 $_lang['modsizecontrol_load_text'] = 'Загрузка';
 
 $_lang['modsizecontrol_err_error'] = 'Ошибка';
+$_lang['modsizecontrol_err_unknown'] = 'Неизвестно';
 $_lang['modsizecontrol_err_class_exist'] = 'Не загружен класс';
 $_lang['modsizecontrol_err_filesystem_not_specified'] = 'Не заданы источники файлов';
 $_lang['modsizecontrol_err_filesystem_not_get'] = 'Не удалось получить источники';

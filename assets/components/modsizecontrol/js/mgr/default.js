@@ -82,5 +82,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
     setTimeout(function () {
         modSizeControl.ajax();
-    }, 500);
+    }, 50);
 });

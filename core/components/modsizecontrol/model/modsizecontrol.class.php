@@ -45,7 +45,9 @@ class modSizeControl
     // Функция форматирует вывод размера
     public function format_size($size, $precision = 2)
     {
-        $base = log($size, 1024);
+        if($size == 0) {
+            return false;
+        }
 
         $metrics = array(
             $this->modx->lexicon('modsizecontrol_metrics_byte') ?: 'b',
@@ -54,6 +56,8 @@ class modSizeControl
             $this->modx->lexicon('modsizecontrol_metrics_gigabyte') ?: 'Gb',
             $this->modx->lexicon('modsizecontrol_metrics_terabyte') ?: 'Tb'
         );
+
+        $base = log($size, 1024);
 
         return round(pow(1024, $base - floor($base)), $precision) .' '. $metrics[floor($base)];
     }
