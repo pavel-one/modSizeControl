@@ -17,25 +17,10 @@ switch($modx->event->name) {
         $modx->regClientStartupScript($modSizeControl->config['jsUrl'] . 'mgr/default.js?ver=1.0.7');
         break;
     case 'OnFileManagerBeforeUpload':
-        if($modx->getOption('modsizecontrol_control')) {
-            $limit = ($modSizeControl->config['limit'] * 1024) * 1024;
-            
-            $response = $modx->runProcessor('size/update', array(), array(
-                'processors_path' => $modSizeControl->config['publicProcessors']
-            ));
-    
-            $site_size = $response->response['object']['clearSize'] ?: $modx->cacheManager->get('modSizeControl');
-            $available = $limit - $site_size;
-            $total = $site_size + $file['size'];
-    
-            if($file['size'] > $available) {
-                $modx->event->params['file']['error'] = 1;
-                $source->addError('limit', $modx->lexicon('modsizecontrol_limit_out_header'));
-            } else {
-                $modx->cacheManager->set('modSizeControl', $total, 43200);
-            }
-        } else {
-            $modx->cacheManager->delete('modSizeControl');
+
+        if($modx->getOption('modsizecontrol_control') && !$modSizeControl->checkSize($file)) {
+            $modx->event->params['file']['error'] = 1;
+            $source->addError('limit', $modx->lexicon('modsizecontrol_limit_out_header'));
         }
         
         break;

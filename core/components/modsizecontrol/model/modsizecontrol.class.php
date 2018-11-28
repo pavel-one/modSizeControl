@@ -43,22 +43,21 @@ class modSizeControl
     }
 
     // Функция форматирует вывод размера
-    public function format_size($size)
+    public function format_size($size, $precision = 2)
     {
-        $metrics[0] = $this->modx->lexicon('modsizecontrol_metrics_byte', array(), $lang) ?: 'b';
-        $metrics[1] = $this->modx->lexicon('modsizecontrol_metrics_kilobyte', array(), $lang) ?: 'kb';
-        $metrics[2] = $this->modx->lexicon('modsizecontrol_metrics_megabyte', array(), $lang) ?: 'Mb';
-        $metrics[3] = $this->modx->lexicon('modsizecontrol_metrics_gigabyte', array(), $lang) ?: 'Gb';
-        $metrics[4] = $this->modx->lexicon('modsizecontrol_metrics_terabyte', array(), $lang) ?: 'Tb';
-        $metric = 0;
-        while (floor($size / 1024) > 0) {
-            ++$metric;
-            $size /= 1024;
-        }
-        $ret = round($size, 1) . " " . (isset($metrics[$metric]) ? $metrics[$metric] : '??');
-        return $ret;
-    }
+        $base = log($size, 1024);
 
+        $metrics = array(
+            $this->modx->lexicon('modsizecontrol_metrics_byte') ?: 'b',
+            $this->modx->lexicon('modsizecontrol_metrics_kilobyte') ?: 'kb',
+            $this->modx->lexicon('modsizecontrol_metrics_megabyte') ?: 'Mb',
+            $this->modx->lexicon('modsizecontrol_metrics_gigabyte') ?: 'Gb',
+            $this->modx->lexicon('modsizecontrol_metrics_terabyte') ?: 'Tb'
+        );
+
+        return round(pow(1024, $base - floor($base)), $precision) .' '. $metrics[floor($base)];
+    }
+ 
     public function dir_size($dir)
     {
         $dir = rtrim(str_replace('\\', '/', $dir), '/');
@@ -95,10 +94,34 @@ class modSizeControl
             return filesize($dir);
         }
     }
-
-    public function checkSize($file)
+ 
+    public function checkSize($file = NULL)
     {
-        //TODO: #8
+        if(is_null($file)) {
+            $this->modx->log(MODX_LOG_LEVEL_ERROR, $this->modx->lexicon('modsizecontrol_err_file_exist'));
+            return false;
+        }
+
+        if($file['size'] > $this->getAvailable()) return false;
+
+        $total = $this->getSiteSize() + $file['size'];
+        $this->modx->cacheManager->set('modSizeControl', $total, 43200);
+
+        return true;
+    }
+
+    public function getAvailable() {
+        $limit = ($this->config['limit'] * 1024) * 1024;
+
+        return $limit - $this->getSiteSize();
+    }
+
+    public function getSiteSize() {
+        $response = $this->modx->runProcessor('size/update', array(), array(
+            'processors_path' => $this->config['publicProcessors']
+        ));
+
+        return !empty($response->response['success']) ? $response->response['object']['clearSize'] : $this->modx->cacheManager->get('modSizeControl');
     }
 
 }

@@ -22,5 +22,6 @@ $_lang['modsizecontrol_err_directory_size'] = 'Проблема с получе�
 $_lang['modsizecontrol_err_cache_setting'] = 'Не найдена кэш-настройка';
 $_lang['modsizecontrol_err_save_setting'] = 'Не удалось сохранить настройку';
 $_lang['modsizecontrol_err_frequent_update'] = 'Слишком частый запрос обновления';
+$_lang['modsizecontrol_err_file_exist'] = 'Не передан массив с данными файла';
 
 $_lang['modsizecontrol_success_update'] = 'Обновление завершено успешно';

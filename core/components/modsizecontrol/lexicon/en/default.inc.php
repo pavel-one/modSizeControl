@@ -22,6 +22,7 @@ $_lang['modsizecontrol_err_directory_size'] = 'The problem with obtaining direct
 $_lang['modsizecontrol_err_cache_setting'] = 'Cache setting not found';
 $_lang['modsizecontrol_err_save_setting'] = 'Failed to save setting';
 $_lang['modsizecontrol_err_frequent_update'] = 'Too frequent update request';
+$_lang['modsizecontrol_err_file_exist'] = 'An array with file data was not transferred';
 
 $_lang['modsizecontrol_success_update'] = 'Update completed successfully';
 
