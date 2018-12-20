@@ -13,8 +13,8 @@ switch($modx->event->name) {
             var modSizeControlConfig = {$jsonConfig};
             </script>
         ");
-        $modx->regClientCSS($modSizeControl->config['cssUrl'] . 'mgr/default.css?ver=1.0.7');
-        $modx->regClientStartupScript($modSizeControl->config['jsUrl'] . 'mgr/default.js?ver=1.0.7');
+        $modx->regClientCSS($modSizeControl->config['cssUrl'] . 'mgr/default.css?ver=1.0.8');
+        $modx->regClientStartupScript($modSizeControl->config['jsUrl'] . 'mgr/default.js?ver=1.0.8');
         break;
     case 'OnFileManagerBeforeUpload':
 
