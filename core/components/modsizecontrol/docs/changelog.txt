@@ -1,5 +1,27 @@
 Changelog for modSizeControl.
 
+1.0.8-beta
+==============
+- Change main plugin
+- Update format_size method
+- Added checkSize, getAvailable & getSiteSize methods
+- Fix NAN value returned from format_size method
+
+1.0.7-beta
+==============
+- Added feature that controls file downloads, which interrupt file uploads when the limit is reached. (Disabled by default, System setting: modsizecontrol_control)
+- Fixed undefined instead of percentage during first loading
+- Minor design changes
+
+1.0.6-beta
+==============
+- Fix size limit exceeded behavior
+
+1.0.5-beta
+==============
+- Fixed error "Cannot read property classList" was on all pages except the main
+- Fixed infinite scrolling behavior after error
+
 1.0.4-beta
 ==============
 - Added protection update
