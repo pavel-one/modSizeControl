@@ -3,7 +3,7 @@
 return [
     'modSizeControl' => [
         'file' => 'modsizecontrol',
-        'description' => 'Подключение скриптов',
+        'description' => 'Подключение скриптов и контроль загрузки файлов',
         'events' => [
             'OnManagerPageInit' => [],
             'OnFileManagerBeforeUpload' => [],
