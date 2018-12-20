@@ -240,50 +240,6 @@ class modSizeControlPackage
 
 
     /**
-     * Add resources
-     */
-    protected function resources()
-    {
-        /** @noinspection PhpIncludeInspection */
-        $resources = include($this->config['elements'] . 'resources.php');
-        if (!is_array($resources)) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR, 'Could not package in Resources');
-
-            return;
-        }
-        $attributes = [
-            xPDOTransport::UNIQUE_KEY => 'id',
-            xPDOTransport::PRESERVE_KEYS => true,
-            xPDOTransport::UPDATE_OBJECT => !empty($this->config['update']['resources']),
-            xPDOTransport::RELATED_OBJECTS => false,
-        ];
-        $objects = [];
-        foreach ($resources as $context => $items) {
-            $menuindex = 0;
-            foreach ($items as $alias => $item) {
-                if (!isset($item['id'])) {
-                    $item['id'] = $this->_idx++;
-                }
-                $item['alias'] = $alias;
-                $item['context_key'] = $context;
-                $item['menuindex'] = $menuindex++;
-                $objects = array_merge(
-                    $objects,
-                    $this->_addResource($item, $alias)
-                );
-            }
-        }
-
-        /** @var modResource $resource */
-        foreach ($objects as $resource) {
-            $vehicle = $this->builder->createVehicle($resource, $attributes);
-            $this->builder->putVehicle($vehicle);
-        }
-        $this->modx->log(modX::LOG_LEVEL_INFO, 'Packaged in ' . count($objects) . ' Resources');
-    }
-
-
-    /**
      * Add plugins
      */
     protected function plugins()
@@ -428,42 +384,6 @@ class modSizeControlPackage
 
 
     /**
-     * Add templates
-     */
-    protected function templates()
-    {
-        /** @noinspection PhpIncludeInspection */
-        $templates = include($this->config['elements'] . 'templates.php');
-        if (!is_array($templates)) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR, 'Could not package in Templates');
-
-            return;
-        }
-        $this->category_attributes[xPDOTransport::RELATED_OBJECT_ATTRIBUTES]['Templates'] = [
-            xPDOTransport::UNIQUE_KEY => 'templatename',
-            xPDOTransport::PRESERVE_KEYS => false,
-            xPDOTransport::UPDATE_OBJECT => !empty($this->config['update']['templates']),
-            xPDOTransport::RELATED_OBJECTS => false,
-        ];
-        $objects = [];
-        foreach ($templates as $name => $data) {
-            /** @var modTemplate[] $objects */
-            $objects[$name] = $this->modx->newObject('modTemplate');
-            $objects[$name]->fromArray(array_merge([
-                'templatename' => $name,
-                'description' => $data['description'],
-                'content' => $this::_getContent($this->config['core'] . 'elements/templates/' . $data['file'] . '.tpl'),
-                'static' => !empty($this->config['static']['templates']),
-                'source' => 1,
-                'static_file' => 'core/components/' . $this->config['name_lower'] . '/elements/templates/' . $data['file'] . '.tpl',
-            ], $data), '', true, true);
-        }
-        $this->category->addMany($objects);
-        $this->modx->log(modX::LOG_LEVEL_INFO, 'Packaged in ' . count($objects) . ' Templates');
-    }
-
-
-    /**
      * @param $filename
      *
      * @return string
@@ -479,60 +399,6 @@ class modSizeControlPackage
         }
 
         return '';
-    }
-
-
-    /**
-     * @param array $data
-     * @param string $uri
-     * @param int $parent
-     *
-     * @return array
-     */
-    protected function _addResource(array $data, $uri, $parent = 0)
-    {
-        $file = $data['context_key'] . '/' . $uri;
-        /** @var modResource $resource */
-        $resource = $this->modx->newObject('modResource');
-        $resource->fromArray(array_merge([
-            'parent' => $parent,
-            'published' => true,
-            'deleted' => false,
-            'hidemenu' => false,
-            'createdon' => time(),
-            'template' => 1,
-            'isfolder' => !empty($data['isfolder']) || !empty($data['resources']),
-            'uri' => $uri,
-            'uri_override' => false,
-            'richtext' => false,
-            'searchable' => true,
-            'content' => $this::_getContent($this->config['core'] . 'elements/resources/' . $file . '.tpl'),
-        ], $data), '', true, true);
-
-        if (!empty($data['groups'])) {
-            foreach ($data['groups'] as $group) {
-                $resource->joinGroup($group);
-            }
-        }
-        $resources[] = $resource;
-
-        if (!empty($data['resources'])) {
-            $menuindex = 0;
-            foreach ($data['resources'] as $alias => $item) {
-                if (!isset($item['id'])) {
-                    $item['id'] = $this->_idx++;
-                }
-                $item['alias'] = $alias;
-                $item['context_key'] = $data['context_key'];
-                $item['menuindex'] = $menuindex++;
-                $resources = array_merge(
-                    $resources,
-                    $this->_addResource($item, $uri . '/' . $alias, $data['id'])
-                );
-            }
-        }
-
-        return $resources;
     }
 
 
