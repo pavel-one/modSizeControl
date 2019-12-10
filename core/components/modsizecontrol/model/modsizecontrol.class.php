@@ -71,9 +71,9 @@ class modSizeControl
             $os = strtoupper(substr(PHP_OS, 0, 3));
             // If on a Unix Host (Linux, Mac OS)
             if ($os !== 'WIN') {
-                $io = popen('/usr/bin/du -sb ' . $dir, 'r');
+                $io = popen('/usr/bin/du -sk ' . $dir, 'r');
                 if ($io !== false) {
-                    $totalSize = intval(fgets($io, 80));
+                    $totalSize = intval(fgets($io, 80))* 1024;
                     pclose($io);
                     return $totalSize;
                 }
